@@ -235,4 +235,6 @@ It is a student prototype designed to demonstrate system architecture and risk m
 
 It is not financial advice.
 
+# Video Walk through:
+https://drive.google.com/file/d/18zAqn_czRscfyus1tuVkU273IoZc_m1d/view?usp=sharing
 
