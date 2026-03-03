@@ -1,6 +1,4 @@
-Perfect. Here is the **complete, clean, properly formatted README**.
 
-Just copy everything below and paste it into your `README.md`.
 
 ---
 
@@ -135,8 +133,8 @@ pip install pandas numpy yfinance matplotlib requests
 ## Step 1 – Clone the Repository
 
 ```
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
-cd YOUR_REPO_NAME
+git clone https://github.com/USERNAME/REPO_NAME.git
+cd REPO_NAME
 ```
 
 ## Step 2 – Launch Jupyter Notebook
@@ -236,69 +234,5 @@ This project is for educational purposes only.
 It is a student prototype designed to demonstrate system architecture and risk management principles.
 
 It is not financial advice.
-# System Flow Diagram
 
-```mermaid
-flowchart TD
 
-    A[Start System] --> B[Download BTC Data]
-    B --> C[Clean & Prepare Data]
-    C --> D[Calculate Indicators (ATR)]
-    D --> E[Main Trading Loop]
-
-    E --> F{Swing Trade Active?}
-    F -->|Yes| G[Check ATR Stop-Loss]
-    G --> H{Stop Hit?}
-    H -->|Yes| I[Sell Swing Position]
-    H -->|No| J[Continue]
-
-    F -->|No| K[Check Swing Entry Rule]
-    K --> L[Open Swing Trade]
-    L --> M[Set ATR Stop-Loss]
-
-    E --> N[Check DCA Rule]
-    N --> O{Price Drop >= 3%?}
-    O -->|Yes| P[Execute DCA Buy]
-    O -->|No| Q[Continue]
-
-    E --> R[Update Portfolio Value]
-    R --> S[Calculate Drawdown]
-    S --> T{Drawdown >= 25%?}
-    T -->|Yes| U[Pause New Trades]
-    T -->|No| V[Continue Trading]
-
-    E --> W[Log Trade]
-    W --> X[Send Telegram Notification]
-    X --> Y[Update Metrics (Sharpe & Max DD)]
-    Y --> Z[End of Candle → Repeat]
-
----
-
-# What This Diagram Shows (For Your Video)
-
-You can explain it simply like this:
-
-- The system starts
-- It downloads and cleans data
-- It calculates ATR
-- It enters the main trading loop
-- It checks stop-loss first (risk first)
-- It checks DCA buying rule
-- It checks swing trade rule
-- It updates portfolio value
-- It checks drawdown safeguard
-- It logs trades
-- It sends Telegram notification
-- It repeats every candle
-
-This makes your project look structured and intentional.
-
----
-
-If you want, I can now:
-
-- Simplify the diagram (more minimal version)
-- Or make a more “corporate” style architecture diagram
-- Or create a clean PNG-style version you can screenshot
-
-What do you want?
