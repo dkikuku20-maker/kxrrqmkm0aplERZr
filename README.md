@@ -1,66 +1,117 @@
-# Introduction: Bitcoin Hybrid Trading System (DCA + ATR)
+# Smart Bitcoin Trading Agent
 
-In this notebook, we will walk through building a complete rule-based Bitcoin trading system using real market data.
+## Project Overview
 
-This project is inspired by real-world fintech trading systems that must operate continuously, manage risk, and make decisions automatically.
+This project implements a rule-based Bitcoin trading system designed to operate with minimal human supervision.
 
-The one-sentence summary of this project is:
+The objective of this assignment was not to build a hedge fund strategy, but to demonstrate:
 
-Design a hybrid Bitcoin trading system that accumulates during price drops, manages short-term trades using volatility-adjusted stop-loss rules, and protects capital using portfolio-level safeguards.
+- Hybrid trading strategy design (DCA + Swing)
+- Volatility-based stop-loss using ATR
+- Portfolio-level risk management
+- Risk metrics calculation (Maximum Drawdown, Sharpe Ratio)
+- Basic automation using Telegram notifications
 
-This is not a machine learning prediction task.
+The system uses real historical Bitcoin price data and simulates trading decisions.
 
-Instead, this is a systematic decision-engine design problem.
+---
 
-We are building a disciplined system that makes consistent decisions based on rules.
+# System Architecture
 
-## Project Objective
+The trading system consists of the following components:
 
-The goal of this system is to answer one main question:
+1. Data download using Yahoo Finance (yfinance)
+2. Data cleaning and preprocessing
+3. Dollar-Cost Averaging (DCA) base strategy
+4. Swing trading layer with ATR-based stop-loss
+5. Portfolio-level drawdown safeguard
+6. Risk metrics evaluation
+7. Telegram notification integration
 
-How can we grow a Bitcoin portfolio while controlling downside risk in a volatile market?
+This structure demonstrates both trading logic and system-level thinking.
 
-To solve this, we design a hybrid system with two components:
+---
 
-1. Dollar Cost Averaging (DCA)
-   - Accumulate Bitcoin when price drops.
-   - Long-term capital growth logic.
+# Strategy Design
 
-2. ATR-Based Swing Trading
-   - Enter short-term trades.
-   - Use volatility-based stop-loss protection.
+## 1. Dollar-Cost Averaging (DCA)
 
-The system operates on 30-minute market updates and continuously evaluates:
+The system buys $500 worth of Bitcoin whenever the price drops 3% from the last DCA buy.
 
-- Portfolio value
-- Risk exposure
-- Stop-loss conditions
-- Trade opportunities
+Purpose:
+- Reduce emotional decision-making
+- Accumulate Bitcoin gradually during market dips
+- Lower average cost over time
 
-## Trading System Workflow
+---
 
-Although this is not a machine learning model, it follows a structured pipeline similar to ML workflows.
+## 2. Swing Trading (Short-Term Layer)
 
-The general structure of our trading system is:
+The system opens small short-term trades when simple trend conditions are met.
 
-1. Data collection and formatting
-2. Data validation and cleaning
-3. Feature engineering (volatility indicators)
-4. Strategy design (DCA + Swing logic)
-5. Risk management implementation
-6. Performance evaluation
-7. Reporting and monitoring
+Each swing trade includes a volatility-based stop-loss:
 
-Just like machine learning pipelines, trading systems are iterative.
+Stop-Loss = Entry Price − (ATR × k)
 
-We may adjust:
+Where:
+- ATR = Average True Range (market volatility)
+- k = configurable multiplier
 
-- Risk parameters
-- Stop-loss multiplier
-- DCA percentage triggers
-- Swing entry conditions
+Purpose:
+- Capture short-term market movements
+- Adapt stop-loss distance to volatility
+- Avoid fixed-percentage stops
 
-based on performance results.
+---
 
-This is not a one-pass system.
-It evolves through testing and refinement.
+# Risk Management
+
+## Portfolio-Level Safeguard
+
+If total portfolio value drops 25% from its highest value:
+
+- The system pauses new trades
+- Stop-loss exits are still allowed
+
+This prevents excessive losses during major market crashes.
+
+---
+
+## Maximum Drawdown
+
+Maximum drawdown measures the largest peak-to-trough decline during the simulation.
+
+This helps evaluate worst-case loss exposure.
+
+---
+
+## Sharpe Ratio
+
+Sharpe Ratio measures risk-adjusted return.
+
+It compares:
+
+- Average returns
+- Versus return volatility
+
+This helps evaluate performance stability.
+
+---
+
+# Data Source
+
+Bitcoin historical data is downloaded using:
+
+- yfinance (Yahoo Finance API)
+- Daily and 30-minute candle intervals
+
+This allows realistic backtesting using real market data.
+
+---
+
+# Installation Requirements
+
+Install required Python packages:
+
+```bash
+pip install pandas numpy yfinance matplotlib requests
